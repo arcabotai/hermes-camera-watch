@@ -1,0 +1,16 @@
+.hcw-grid { display: grid; gap: 1rem; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+@media (max-width: 900px) { .hcw-grid { grid-template-columns: 1fr; } }
+.hcw-cam { width: 100%; border-radius: 0.5rem; background: #111; min-height: 180px; display: block; object-fit: contain; }
+.hcw-kv { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 0.75rem; font-size: 0.85rem; }
+.hcw-kv dt { opacity: 0.65; }
+.hcw-kv dd { margin: 0; font-variant-numeric: tabular-nums; }
+.hcw-banner { padding: 0.55rem 0.75rem; border-radius: 0.5rem; font-size: 0.88rem; line-height: 1.35; }
+.hcw-banner.ok { background: rgba(34, 160, 90, 0.15); color: #1f8a4c; }
+.hcw-banner.warn { background: rgba(202, 138, 4, 0.16); color: #a16207; }
+.hcw-banner.info { background: rgba(37, 99, 235, 0.12); color: #1d4ed8; }
+.hcw-log { font-size: 0.8rem; display: grid; gap: 0.45rem; max-height: 22rem; overflow: auto; }
+.hcw-log > div { border-left: 3px solid #b45309; padding-left: 0.5rem; }
+.hcw-name { font-family: ui-monospace, monospace; font-weight: 600; }
+.hcw-muted { opacity: 0.65; }
+.hcw-list { margin: 0.4rem 0 0; padding-left: 1.1rem; }
+.hcw-list li { margin: 0.2rem 0; }
