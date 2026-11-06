@@ -1,0 +1,11 @@
+{
+  "name": "hermes-camera-watch",
+  "label": "Cameras",
+  "description": "Last still, recent alerts, watch status, and the privacy limits for cameras you configured.",
+  "icon": "Camera",
+  "version": "0.1.0",
+  "tab": { "path": "/cameras", "position": "after:skills" },
+  "entry": "dist/index.js",
+  "css": "dist/style.css",
+  "api": "plugin_api.py"
+}

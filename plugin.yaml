@@ -1,0 +1,62 @@
+name: hermes-camera-watch
+version: 0.1.0
+description: >-
+  Watch cameras you own (RTSP or an HTTP(S) snapshot URL) and alert with a saved
+  still plus a one-line caption when the scene changes. Mock mode plays a scripted
+  package-at-the-door scene with no camera and no network. A pre_tool_call interlock
+  refuses anything that is not on your allowlist.
+author: Arca Computer (arcabotai)
+license: MIT
+homepage: https://github.com/arcabotai/hermes-camera-watch
+manifest_version: 2
+requires_hermes: ">=0.21.6"
+tags: [camera, rtsp, snapshot, motion, privacy, home]
+provides_tools:
+  - camera_list
+  - camera_status
+  - camera_snapshot
+  - camera_watch_start
+  - camera_watch_stop
+  - camera_watch_poll
+  - camera_events
+provides_hooks:
+  - pre_tool_call
+config_schema:
+  backend:
+    type: str
+    choices: [mock, live]
+    default: mock
+    label: Backend
+    description: "mock = scripted scenes, no network (default). live = only the cameras listed below."
+  cameras:
+    type: list
+    label: Cameras
+    description: "Named cameras you own. The whole list replaces the default. Mock entries need scene package or quiet. Live entries need transport snapshot (http/https URL) or rtsp (rtsp/rtsps URL). Names are labels, not URLs. Cap is 32."
+    default:
+      - {name: front-door, transport: mock, scene: package}
+      - {name: quiet-room, transport: mock, scene: quiet}
+  watch:
+    type: dict
+    label: Watch
+    description: "interval_s, min_interval_s (raised to at least 1), max_watches (capped at 8), motion_threshold (at least 0.02), pixel_delta, cooldown_s"
+    default: {interval_s: 5.0, min_interval_s: 2.0, max_watches: 4, motion_threshold: 0.08, pixel_delta: 18, cooldown_s: 20.0}
+  storage:
+    type: dict
+    label: Storage
+    description: "output_dir (empty = plugin data dir), keep_snapshots, keep_events. Older stills and events are deleted."
+    default: {output_dir: "", keep_snapshots: 30, keep_events: 100}
+  fetch:
+    type: dict
+    label: Fetch
+    description: "timeout_s and max_bytes for one still. Redirects are never followed."
+    default: {timeout_s: 8.0, max_bytes: 8000000}
+  tls:
+    type: dict
+    label: TLS
+    description: "ca_file empty = system trust store. A path that is not a file refuses the connection. Verification cannot be disabled."
+    default: {ca_file: ""}
+  limits:
+    type: dict
+    label: Limits
+    description: "max_cameras is how many entries are accepted (hard cap 32). The rest are ignored and not contacted."
+    default: {max_cameras: 8}
